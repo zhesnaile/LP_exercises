@@ -1,11 +1,13 @@
-all: build
-	./p25054
+PROGRAM_NAME=p25054
 
-build: p25054.hs
-	ghc p25054.hs
+all: build
+	./$(PROGRAM_NAME)
+
+build: $(PROGRAM_NAME).hs
+	ghc $(PROGRAM_NAME).hs
 
 test: all
-	./p25054 | diff - sample.cor
+	./$(PROGRAM_NAME) | diff - sample.cor
 
-clean: p25054 p25054.hi p25054.o
-	rm p77907 p25054.hi p25054.o
+clean: $(PROGRAM_NAME) $(PROGRAM_NAME).hi $(PROGRAM_NAME).o
+	rm $(PROGRAM_NAME) $(PROGRAM_NAME).hi $(PROGRAM_NAME).o

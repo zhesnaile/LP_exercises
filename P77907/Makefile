@@ -1,11 +1,13 @@
-all: build
-	./p77907
+PROGRAM_NAME=p77907
 
-build: p77907.hs
-	ghc p77907.hs
+all: build
+	./$(PROGRAM_NAME)
+
+build: $(PROGRAM_NAME).hs
+	ghc $(PROGRAM_NAME).hs
 
 test: all
-	./p77907 | diff - sample.cor
+	./$(PROGRAM_NAME) | diff - sample.cor
 
-clean: p77907 p77907.hi p77907.o
-	rm p77907 p77907.hi p77907.o
+clean: $(PROGRAM_NAME) $(PROGRAM_NAME).hi $(PROGRAM_NAME).o
+	rm $(PROGRAM_NAME) $(PROGRAM_NAME).hi $(PROGRAM_NAME).o

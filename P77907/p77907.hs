@@ -21,26 +21,26 @@ isPrime n
         isqrt x = floor $ sqrt (fromIntegral x :: Float)
 
 slowFib :: Int -> Int
---{-
-slowFib n
-    | n == 0 = 0
-    | n == 1 = 1
-    | otherwise = slowFib(n-1) + slowFib(n-2)
----}
-{-
 slowFib 0 = 0
 slowFib 1 = 1
 slowFib n = slowFib(n-1) + slowFib(n-2)
----}
 
-data Matrix2x2 = Matrix 
-    { x00 :: Int, x01 :: Int
-    , x10 :: Int, x11 :: Int
-    }
+
 
 quickFib :: Int -> Int
-quickFib n = 0
+quickFib n
+    | n >= 0 = fst $ quickFibInner n
 
+quickFibInner :: Int -> (Int, Int)
+quickFibInner 0 = (0, 1)
+quickFibInner n
+    | even n = (c, d)
+    | otherwise = (d, c + d)
+    where 
+        (a, b) = quickFibInner (div n 2)
+        c = a * ( 2 * b - a)
+        d = a^2 + b^2
+    
 main::IO()
 main = do
     print $ absValue (-666)

@@ -16,10 +16,11 @@ average ls@(x:xs) =
     in
         summary / len
 
-{-
-buildPalindrome :: [Int] -> [Int]
-buildPalindrome [] = [0]
 
+buildPalindrome :: [Int] -> [Int]
+buildPalindrome xs = reverse xs ++ xs
+
+{-
 remove :: [Int] -> [Int] -> [Int] 
 remove [][] = [0]
 
@@ -36,8 +37,8 @@ main::IO()
 main = do
     print $ myMaximum [4,3,1,5,4,5,2]
     print $ average [1,2,3]
-{-
     print $ buildPalindrome [2,4,6]
+{-}
     print $ flatten [[2,6],[8,1,4],[],[1]]
     print $ remove [1,4,5,3,4,5,1,2,7,4,2] [2,4]
 --}

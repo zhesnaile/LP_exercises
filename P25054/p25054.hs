@@ -29,13 +29,17 @@ flatten :: [[Int]] -> [Int]
 flatten [x] = x
 flatten (x:xs) = x ++ flatten xs
 
-{-
 oddsNevens :: [Int] -> ([Int],[Int])
-oddsNevens [] = ([0],[0])
+oddsNevens xs = (odd_numbers, even_numbers)
+    where
+        even_numbers = filter even xs
+        odd_numbers = filter odd xs
 
+{-
 primeDivisors :: Int -> [Int]
 primeDivisors n = [0]
 --}
+
 main::IO()
 main = do
     print $ myMaximum [4,3,1,5,4,5,2]
@@ -44,7 +48,7 @@ main = do
     print $ flatten [[2,6],[8,1,4],[],[1]]
     print $ remove [1,4,5,3,4,5,1,2,7,4,2] [2,4]
     print $ myLength [1,3..10]
-{-
     print $ oddsNevens [1,4,5,3,4,5,1,2,7,4,2]
+{-
     print $ primeDivisors 255
 --}

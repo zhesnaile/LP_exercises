@@ -7,10 +7,16 @@ myMaximum :: [Int] -> Int
 myMaximum [x] = x
 myMaximum (x:xs) = max x $ myMaximum xs
 
-{-
-average :: [Int] -> Float
-average [] = 0.0
 
+average :: [Int] -> Float
+average ls@(x:xs) =
+    let 
+        summary = fromIntegral $ sum ls 
+        len = fromIntegral $ length ls
+    in
+        summary / len
+
+{-
 buildPalindrome :: [Int] -> [Int]
 buildPalindrome [] = [0]
 
@@ -29,8 +35,8 @@ primeDivisors n = [0]
 main::IO()
 main = do
     print $ myMaximum [4,3,1,5,4,5,2]
-{-
     print $ average [1,2,3]
+{-
     print $ buildPalindrome [2,4,6]
     print $ flatten [[2,6],[8,1,4],[],[1]]
     print $ remove [1,4,5,3,4,5,1,2,7,4,2] [2,4]

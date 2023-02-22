@@ -24,6 +24,7 @@ remove xs ys = [x | x <- xs, x `notElem` ys]
 
 
 flatten :: [[Int]] -> [Int]
+flatten [] = []
 flatten [x] = x
 flatten (x:xs) = x ++ flatten xs
 

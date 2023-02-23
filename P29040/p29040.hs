@@ -39,21 +39,20 @@ msort xs = merge (msort left) (msort right)
         middle xs = length xs `div` 2
         (left, right) = splitAt (middle xs) xs
 
-
 qsort :: [Int] -> [Int]
 qsort [] = []
 qsort (x:xs) =
     let
-        lesserEqual xs x = [y| y <- xs, y <= x]
-        greater xs x = [y | y <- xs, y > x]
+        lesserEqual :: [Int] -> Int -> [Int]
+        lesserEqual zs z = [y | y <- xs, y <= z]
+        greater :: [Int] -> Int -> [Int]
+        greater zs z = [y | y <- xs, y > z]
     in
         qsort(lesserEqual xs x) ++ x:qsort(greater xs x)
-
 
 {-
 genQsort :: Ord a => [a] -> [a]
 --}
-
 main::IO()
 main = do
     print $ insert [10,20,30,40] 25

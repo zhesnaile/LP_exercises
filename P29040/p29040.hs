@@ -44,15 +44,24 @@ qsort [] = []
 qsort (x:xs) =
     let
         lesserEqual :: [Int] -> Int -> [Int]
-        lesserEqual zs z = [y | y <- xs, y <= z]
+        lesserEqual zs z = [y | y <- zs, y <= z]
         greater :: [Int] -> Int -> [Int]
-        greater zs z = [y | y <- xs, y > z]
+        greater zs z = [y | y <- zs, y > z]
     in
         qsort(lesserEqual xs x) ++ x:qsort(greater xs x)
 
-{-
+
 genQsort :: Ord a => [a] -> [a]
---}
+genQsort [] = []
+genQsort (x:xs) =
+    let
+        lesserEqual :: Ord a => [a] -> a -> [a]
+        lesserEqual zs z = [y | y <- zs, y <= z]
+        greater :: Ord a => [a] -> a -> [a]
+        greater zs z = [y | y <- zs, y > z]
+    in
+        genQsort(lesserEqual xs x) ++ x:genQsort(greater xs x)
+{---}
 main::IO()
 main = do
     print $ insert [10,20,30,40] 25
@@ -64,7 +73,7 @@ main = do
     print $ merge [1,2,5,7,8] [2,4,7,9]
     print $ msort [6,5,2,5,6,8]
     print $ qsort [6,5,2,5,6,8]
-{-    print $ genQsort [5.0,3.0,2.5]
+    print $ genQsort [5.0,3.0,2.5]
     print $ genQsort ["jordi", "albert", "josep"]
     print $ genQsort "antaviana"
---}
+{- --}

@@ -1,4 +1,3 @@
-
 insert :: [Int] -> Int -> [Int]
 insert [] y = [y]
 insert ls@(x:xs) y
@@ -40,9 +39,18 @@ msort xs = merge (msort left) (msort right)
         middle xs = length xs `div` 2
         (left, right) = splitAt (middle xs) xs
 
-{-
-qsort :: [Int] -> [Int]
 
+qsort :: [Int] -> [Int]
+qsort [] = []
+qsort (x:xs) =
+    let
+        lesserEqual xs x = [y| y <- xs, y <= x]
+        greater xs x = [y | y <- xs, y > x]
+    in
+        qsort(lesserEqual xs x) ++ x:qsort(greater xs x)
+
+
+{-
 genQsort :: Ord a => [a] -> [a]
 --}
 
@@ -56,8 +64,8 @@ main = do
     print $ ssort [6,5,2,5,6,8]
     print $ merge [1,2,5,7,8] [2,4,7,9]
     print $ msort [6,5,2,5,6,8]
-{-    print $ qsort [6,5,2,5,6,8]
-    print $ genQsort [5.0,3.0,2.5]
+    print $ qsort [6,5,2,5,6,8]
+{-    print $ genQsort [5.0,3.0,2.5]
     print $ genQsort ["jordi", "albert", "josep"]
     print $ genQsort "antaviana"
 --}

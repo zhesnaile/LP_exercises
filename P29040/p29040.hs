@@ -1,10 +1,11 @@
 insert :: [Int] -> Int -> [Int]
 insert [] y = [y]
-insert ls@(x:xs) y
-    | x < y = x : insert xs y
-    | otherwise = y : ls
+insert (x:xs) y
+    | x < y    = x : insert xs y
+    | otherwise = y : x : xs
 
 isort :: [Int] -> [Int]
+isort [] = []
 isort [x] = [x]
 isort (x:xs) = insert (isort xs) x
 
@@ -61,7 +62,7 @@ genQsort (x:xs) =
         greater zs z = [y | y <- zs, y > z]
     in
         genQsort(lesserEqual xs x) ++ x:genQsort(greater xs x)
-{---}
+{-
 main::IO()
 main = do
     print $ insert [10,20,30,40] 25
@@ -76,4 +77,4 @@ main = do
     print $ genQsort [5.0,3.0,2.5]
     print $ genQsort ["jordi", "albert", "josep"]
     print $ genQsort "antaviana"
-{- --}
+-}

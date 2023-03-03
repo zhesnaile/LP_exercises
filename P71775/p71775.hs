@@ -13,8 +13,8 @@ filterFoldl f op accum l = foldl op accum $ filter f l
 insert :: (Int -> Int -> Bool) -> [Int] -> Int -> [Int]
 insert relation l x = left ++ x :  right
     where
-        left = takeWhile (not . relation x) l
-        right = dropWhile (not . relation x) l
+        left = takeWhile (`relation` x) l
+        right = dropWhile (`relation` x) l
 
 insertionSort :: (Int -> Int -> Bool) -> [Int] -> [Int]
 insertionSort relation = foldl (insert relation) []

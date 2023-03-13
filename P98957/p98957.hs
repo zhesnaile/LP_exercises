@@ -1,3 +1,4 @@
+import Text.XHtml (base)
 ones :: [Integer]
 ones = repeat 1
 
@@ -33,7 +34,12 @@ primes = filter isPrime nats
             | otherwise = null [x | x <- [2.. floor $ sqrt $ fromIntegral n], mod n x == 0]
 
 hammings :: [Integer]
-hammings = []
+hammings = 1 : map (2*) hammings `union` map (3*) hammings `union` map (5*) hammings
+    where
+        union a@(x:xs) b@(y:ys)
+            | x < y  = x : union xs b
+            | x == y = x : union xs ys
+            | otherwise = y : union a ys
 
 lookNsay :: [Integer]
 lookNsay = []

@@ -1,4 +1,3 @@
-import Text.XHtml (base)
 ones :: [Integer]
 ones = repeat 1
 
@@ -42,10 +41,21 @@ hammings = 1 : map (2*) hammings `union` map (3*) hammings `union` map (5*) hamm
             | otherwise = y : union a ys
 
 lookNsay :: [Integer]
-lookNsay = []
+lookNsay = iterate count 1
+
+count :: Integer -> Integer
+count a = read $ next $ show a
+
+next :: [Char] -> [Char]
+next [] = []
+next charlist = show n ++ [first_elem] ++ next remainder
+    where
+        first_elem = head charlist
+        n = length $ takeWhile ( == first_elem) charlist
+        remainder = dropWhile ( == first_elem) charlist
 
 tartaglia :: [[Integer]]
-tartaglia = [[]]
+tartaglia = iterate (\row -> zipWith (+) (0: row) ( row ++ [0])) [1]
 
 main::IO()
 main = do
@@ -58,5 +68,5 @@ main = do
     print $ take 8 primes
     print $ take 8 hammings
     print $ take 8 lookNsay
-    print $ take 6 tartaglia
+    print $ take 8 tartaglia
 {---}

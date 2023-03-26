@@ -7,3 +7,6 @@ fizzBuzz = map fizz [0..]
             | n `mod` 3 == 0  = Right "Fizz"
             | n `mod` 5 == 0 = Right "Buzz"
             | otherwise = Left n
+main :: IO()
+main = do
+    print $ take 8 fizzBuzz

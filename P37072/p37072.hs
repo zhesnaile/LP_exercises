@@ -24,6 +24,29 @@ isomorphic (Node x lcx rcx) (Node y lcy rcy)
     | (lcx `equal` lcy && rcx `equal` rcy ) || (lcx `equal` rcy && rcx `equal` lcy) = True
     | otherwise = (isomorphic lcx rcy && isomorphic rcx lcy) || (isomorphic lcx lcy && isomorphic rcx rcy)
 
+preOrder :: Tree a -> [a]
+preOrder Empty = []
+preOrder (Node x lc rc) = [x] ++ preOrder lc ++ preOrder rc
+
+postOrder :: Tree a -> [a]
+postOrder Empty = []
+postOrder (Node x lc rc) = postOrder lc ++ postOrder rc ++ [x]
+
+inOrder :: Tree a -> [a]
+inOrder Empty = []
+inOrder (Node x lc rc) = inOrder lc ++ [x] ++ inOrder rc
+
+breadthFirst :: Tree a -> [a]
+breadthFirst x = breadthFirstRec [x]
+    where
+        breadthFirstRec :: [Tree a] -> [a]
+        breadthFirstRec [] = []
+        breadthFirstRec (Empty:ts) = breadthFirstRec ts
+        breadthFirstRec ((Node x l r):ts) = x : breadthFirstRec (ts ++ [l, r])
+
+--build :: Eq a => [a] -> [a] -> Tree a 
+
+
 main :: IO()
 main = do
     let t7 = Node 7 Empty Empty
@@ -38,11 +61,11 @@ main = do
     print $ height t1
     print $ equal t2 t3
     print $ isomorphic t1 t1'
-{-    print $ preOrder t1
+    print $ preOrder t1
     print $ postOrder t1
     print $ inOrder t1
     print $ breadthFirst t1
-    print $ build [1,2,4,5,3] [4,2,5,1,3]
+{-    print $ build [1,2,4,5,3] [4,2,5,1,3]
     print $ overlap (+) t2 t3
     print $ overlap (+) t1 t3
 --}

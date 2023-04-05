@@ -23,6 +23,7 @@ isomorphic (Node x lcx rcx) (Node y lcy rcy)
     | x /= y = False
     | (lcx `equal` lcy && rcx `equal` rcy ) || (lcx `equal` rcy && rcx `equal` lcy) = True
     | otherwise = (isomorphic lcx rcy && isomorphic rcx lcy) || (isomorphic lcx lcy && isomorphic rcx rcy)
+isomorphic _ _ = False
 
 preOrder :: Tree a -> [a]
 preOrder Empty = []

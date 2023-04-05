@@ -45,8 +45,23 @@ breadthFirst x = breadthFirstRec [x]
         breadthFirstRec (Empty:ts) = breadthFirstRec ts
         breadthFirstRec ((Node x l r):ts) = x : breadthFirstRec (ts ++ [l, r])
 
---build :: Eq a => [a] -> [a] -> Tree a 
+build :: Eq a => [a] -> [a] -> Tree a 
+build [] [] = Empty
+build (x:pl) il = Node x 
+        (build leftPreorder leftInorder)
+        (build rightPreorder rightInorder)
+    where 
+        leftInorder = takeWhile (/=x) il
+        rightInorder = tail (dropWhile (/=x) il)
+        leftPreorder = take (length leftInorder) pl
+        rightPreorder = drop (length leftInorder) pl
 
+overlap :: (a->a->a) -> Tree a -> Tree a -> Tree a
+overlap _ tree1 Empty = tree1
+overlap _ Empty tree2 = tree2
+overlap op (Node x1 l1 r1) (Node x2 l2 r2) = Node (op x1 x2) 
+                                                (overlap op l1 l2)
+                                                (overlap op r1 r2)
 
 main :: IO()
 main = do
@@ -66,7 +81,7 @@ main = do
     print $ postOrder t1
     print $ inOrder t1
     print $ breadthFirst t1
-{-    print $ build [1,2,4,5,3] [4,2,5,1,3]
+    print $ build [1,2,4,5,3] [4,2,5,1,3]
     print $ overlap (+) t2 t3
     print $ overlap (+) t1 t3
---}
+{- --}
